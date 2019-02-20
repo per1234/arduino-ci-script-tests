@@ -86,3 +86,13 @@ source ../arduino-ci-script/arduino-ci-script.sh
   outputRegex="^ERROR: \./check_library_manager_compliance/NameTooLong/library\.properties: name value: asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf does not meet the requirements of the Arduino Library Manager indexer\. See: https://github\.com/arduino/Arduino/wiki/Arduino-IDE-1\.5:-Library-specification#libraryproperties-file-format$"
   [[ "${lines[1]}" =~ $outputRegex ]]
 }
+
+@test "check_library_manager_compliance \"./check_library_manager_compliance/BlankUrl\"" {
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_CHECK_LIBRARY_MANAGER_COMPLIANCE_BLANK_URL_EXIT_STATUS
+  run check_library_manager_compliance "./check_library_manager_compliance/BlankUrl"
+  echo "Exit status: $status | Expected: $expectedExitStatus"
+  [ "$status" -eq $expectedExitStatus ]
+  [ "${#lines[@]}" -eq 1 ]
+  outputRegex="^ERROR: \./check_library_manager_compliance/BlankUrl/library\.properties: Blank url value: You must define a URL.$"
+  [[ "${lines[0]}" =~ $outputRegex ]]
+}
