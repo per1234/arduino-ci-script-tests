@@ -144,7 +144,7 @@ source ../arduino-ci-script/arduino-ci-script.sh
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
   [ "${#lines[@]}" -eq 1 ]
-  outputRegex='^ERROR: \./check_library_structure/IncorrectExamplesFolder: Incorrect examples folder name\. It should be spelled exactly \"examples\"\. See: https://github.com/arduino/Arduino/wiki/Arduino-IDE-1\.5:-Library-specification#library-examples$'
+  outputRegex='^ERROR: \./check_library_structure/IncorrectExamplesFolder: Incorrect examples folder name\. It should be spelled exactly \"examples\"\. Incorrect examples folder name will cause importing the library to Arduino Web Editor to fail and examples to not be available in Arduino Web Editor for Library Manager libraries\. See: https://github.com/arduino/Arduino/wiki/Arduino-IDE-1\.5:-Library-specification#library-examples$'
   [[ "${lines[0]}" =~ $outputRegex ]]
 }
 
@@ -204,7 +204,7 @@ source ../arduino-ci-script/arduino-ci-script.sh
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
   [ "${#lines[@]}" -eq 1 ]
-  outputRegex='^ERROR: \./check_library_structure/SketchOutsideExamples: Sketch files found outside the examples and extras folders\.$'
+  outputRegex='^ERROR: \./check_library_structure/SketchOutsideExamples: Sketch files found outside the examples and extras folders\. Sketches outside the examples folder will cause importing the library to Arduino Web Editor to fail\.$'
   [[ "${lines[0]}" =~ $outputRegex ]]
 }
 
