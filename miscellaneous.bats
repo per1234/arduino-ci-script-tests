@@ -125,3 +125,63 @@ TESTS_BATS_APPLICATION_FOLDER="$APPLICATION_FOLDER"
   reportRegex='Begin Report'
   [[ "$lines" =~ $reportRegex ]]
 }
+
+@test "check_code_formatting \"1\" \"'./miscellaneous/check_code_formatting/NonCompliantAt1'\" \"./miscellaneous/check_code_formatting\" " {
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_SUCCESS_EXIT_STATUS
+  run set_application_folder "$TESTS_BATS_APPLICATION_FOLDER"
+  # The environment variable set by set_application_folder is not preserved so it must be set here
+  ARDUINO_CI_SCRIPT_APPLICATION_FOLDER="$TESTS_BATS_APPLICATION_FOLDER"
+  run check_code_formatting "1" "'./miscellaneous/check_code_formatting/NonCompliantAt1'" "./miscellaneous/check_code_formatting"
+  echo "Exit status: $status | Expected: $expectedExitStatus"
+  [ "$status" -eq $expectedExitStatus ]
+}
+
+@test "check_code_formatting \"1\" \"\" \"./miscellaneous/check_code_formatting/NonCompliantAt1\"" {
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_FAILURE_EXIT_STATUS
+  run set_application_folder "$TESTS_BATS_APPLICATION_FOLDER"
+  # The environment variable set by set_application_folder is not preserved so it must be set here
+  ARDUINO_CI_SCRIPT_APPLICATION_FOLDER="$TESTS_BATS_APPLICATION_FOLDER"
+  run check_code_formatting "1" "" "./miscellaneous/check_code_formatting/NonCompliantAt1"
+  echo "Exit status: $status | Expected: $expectedExitStatus"
+  [ "$status" -eq $expectedExitStatus ]
+}
+
+@test "check_code_formatting \"2\" \"\" \"./miscellaneous/check_code_formatting/NonCompliantAt2\"" {
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_FAILURE_EXIT_STATUS
+  run set_application_folder "$TESTS_BATS_APPLICATION_FOLDER"
+  # The environment variable set by set_application_folder is not preserved so it must be set here
+  ARDUINO_CI_SCRIPT_APPLICATION_FOLDER="$TESTS_BATS_APPLICATION_FOLDER"
+  run check_code_formatting "2" "" "./miscellaneous/check_code_formatting/NonCompliantAt2"
+  echo "Exit status: $status | Expected: $expectedExitStatus"
+  [ "$status" -eq $expectedExitStatus ]
+}
+
+@test "check_code_formatting \"1\" \"\" \"./miscellaneous/check_code_formatting/NonCompliantAt2\"" {
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_SUCCESS_EXIT_STATUS
+  run set_application_folder "$TESTS_BATS_APPLICATION_FOLDER"
+  # The environment variable set by set_application_folder is not preserved so it must be set here
+  ARDUINO_CI_SCRIPT_APPLICATION_FOLDER="$TESTS_BATS_APPLICATION_FOLDER"
+  run check_code_formatting "1" "" "./miscellaneous/check_code_formatting/NonCompliantAt2"
+  echo "Exit status: $status | Expected: $expectedExitStatus"
+  [ "$status" -eq $expectedExitStatus ]
+}
+
+@test "check_code_formatting \"3\" \"\" \"./miscellaneous/check_code_formatting/NonCompliantAt3\"" {
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_FAILURE_EXIT_STATUS
+  run set_application_folder "$TESTS_BATS_APPLICATION_FOLDER"
+  # The environment variable set by set_application_folder is not preserved so it must be set here
+  ARDUINO_CI_SCRIPT_APPLICATION_FOLDER="$TESTS_BATS_APPLICATION_FOLDER"
+  run check_code_formatting "3" "" "./miscellaneous/check_code_formatting/NonCompliantAt3"
+  echo "Exit status: $status | Expected: $expectedExitStatus"
+  [ "$status" -eq $expectedExitStatus ]
+}
+
+@test "check_code_formatting \"2\" \"\" \"./miscellaneous/check_code_formatting/NonCompliantAt3\"" {
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_SUCCESS_EXIT_STATUS
+  run set_application_folder "$TESTS_BATS_APPLICATION_FOLDER"
+  # The environment variable set by set_application_folder is not preserved so it must be set here
+  ARDUINO_CI_SCRIPT_APPLICATION_FOLDER="$TESTS_BATS_APPLICATION_FOLDER"
+  run check_code_formatting "2" "" "./miscellaneous/check_code_formatting/NonCompliantAt3"
+  echo "Exit status: $status | Expected: $expectedExitStatus"
+  [ "$status" -eq $expectedExitStatus ]
+}

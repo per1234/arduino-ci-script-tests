@@ -1,0 +1,2 @@
+// This code would fail the code formatting check at any strictness level
+void foo(){}
