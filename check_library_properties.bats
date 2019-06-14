@@ -212,7 +212,7 @@ source ../arduino-ci-script/arduino-ci-script.sh
 }
 
 @test "check_library_properties \"./check_library_properties/BlankName\"" {
-  expectedExitStatus=$ARDUINO_CI_SCRIPT_CHECK_LIBRARY_PROPERTIES_BLANK_NAME
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_CHECK_LIBRARY_PROPERTIES_BLANK_NAME_EXIT_STATUS
   run check_library_properties "./check_library_properties/BlankName"
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
