@@ -93,9 +93,11 @@ source ../arduino-ci-script/arduino-ci-script.sh
   run check_library_structure "./check_library_structure/-FolderStartsWithInvalidCharacter"
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
-  [ "${#lines[@]}" -eq 1 ]
-  outputRegex='^ERROR: Invalid folder name: -FolderStartsWithInvalidCharacter\. Folder name beginning with a - or \. is not allowed\.$'
+  [ "${#lines[@]}" -eq 2 ]
+  outputRegex='^Invalid folder name: -FolderStartsWithInvalidCharacter\. Folder name beginning with a - or \. is not allowed\.$'
   [[ "${lines[0]}" =~ $outputRegex ]]
+  outputRegex='^ERROR: \./check_library_structure/-FolderStartsWithInvalidCharacter: Invalid folder name\.$'
+  [[ "${lines[1]}" =~ $outputRegex ]]
 }
 
 @test "check_library_structure \"./check_library_structure/Invalid CharactersInFolder\"" {
@@ -103,9 +105,11 @@ source ../arduino-ci-script/arduino-ci-script.sh
   run check_library_structure "./check_library_structure/Invalid CharactersInFolder"
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
-  [ "${#lines[@]}" -eq 1 ]
-  outputRegex='^ERROR: Invalid folder name: Invalid CharactersInFolder\. Only letters, numbers, dots, dashes, and underscores are allowed\.$'
+  [ "${#lines[@]}" -eq 2 ]
+  outputRegex='^Invalid folder name: Invalid CharactersInFolder\. Only letters, numbers, dots, dashes, and underscores are allowed\.$'
   [[ "${lines[0]}" =~ $outputRegex ]]
+  outputRegex='^ERROR: \./check_library_structure/Invalid CharactersInFolder: Invalid folder name\.$'
+  [[ "${lines[1]}" =~ $outputRegex ]]
 }
 
 @test "check_library_structure \"./check_library_structure/FolderNameTooLongasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd\"" {
@@ -113,9 +117,11 @@ source ../arduino-ci-script/arduino-ci-script.sh
   run check_library_structure "./check_library_structure/FolderNameTooLongasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd"
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
-  [ "${#lines[@]}" -eq 1 ]
-  outputRegex='^ERROR: Folder name FolderNameTooLongasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd exceeds the maximum of 63 characters\.$'
+  [ "${#lines[@]}" -eq 2 ]
+  outputRegex='^Folder name FolderNameTooLongasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd exceeds the maximum of 63 characters\.$'
   [[ "${lines[0]}" =~ $outputRegex ]]
+  outputRegex='^ERROR: \./check_library_structure/FolderNameTooLongasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd: Invalid folder name\.$'
+  [[ "${lines[1]}" =~ $outputRegex ]]
 }
 
 @test "check_library_structure \"./check_library_structure/SpuriousDotFolder\"" {
@@ -223,9 +229,11 @@ source ../arduino-ci-script/arduino-ci-script.sh
   run check_library_structure "./check_library_structure/InvalidCharactersAtStartOfSketchFolder"
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
-  [ "${#lines[@]}" -eq 1 ]
-  outputRegex='^ERROR: Invalid folder name: -example1\. Folder name beginning with a - or \. is not allowed\.$'
+  [ "${#lines[@]}" -eq 2 ]
+  outputRegex='^Invalid folder name: -example1\. Folder name beginning with a - or \. is not allowed\.$'
   [[ "${lines[0]}" =~ $outputRegex ]]
+  outputRegex='^ERROR: \./check_library_structure/InvalidCharactersAtStartOfSketchFolder/examples/-example1: Invalid folder name\.$'
+  [[ "${lines[1]}" =~ $outputRegex ]]
 }
 
 @test "check_library_structure \"./check_library_structure/InvalidCharactersInSketchFolder\"" {
@@ -233,9 +241,11 @@ source ../arduino-ci-script/arduino-ci-script.sh
   run check_library_structure "./check_library_structure/InvalidCharactersInSketchFolder"
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
-  [ "${#lines[@]}" -eq 1 ]
-  outputRegex='^ERROR: Invalid folder name: example 1\. Only letters, numbers, dots, dashes, and underscores are allowed\.$'
+  [ "${#lines[@]}" -eq 2 ]
+  outputRegex='^Invalid folder name: example 1\. Only letters, numbers, dots, dashes, and underscores are allowed\.$'
   [[ "${lines[0]}" =~ $outputRegex ]]
+  outputRegex='^ERROR: \./check_library_structure/InvalidCharactersInSketchFolder/examples/example 1: Invalid folder name\.$'
+  [[ "${lines[1]}" =~ $outputRegex ]]
 }
 
 @test "check_library_structure \"./check_library_structure/SketchFolderNameTooLong\"" {
@@ -243,9 +253,11 @@ source ../arduino-ci-script/arduino-ci-script.sh
   run check_library_structure "./check_library_structure/SketchFolderNameTooLong"
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
-  [ "${#lines[@]}" -eq 1 ]
-  outputRegex='^ERROR: Folder name asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf exceeds the maximum of 63 characters\.$'
+  [ "${#lines[@]}" -eq 2 ]
+  outputRegex='^Folder name asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf exceeds the maximum of 63 characters\.$'
   [[ "${lines[0]}" =~ $outputRegex ]]
+  outputRegex='^ERROR: \./check_library_structure/SketchFolderNameTooLong/examples/asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf: Invalid folder name\.$'
+  [[ "${lines[1]}" =~ $outputRegex ]]
 }
 
 @test "check_library_structure \"./check_library_structure/SketchFolderNameTooLongExtras\"" {
@@ -253,9 +265,11 @@ source ../arduino-ci-script/arduino-ci-script.sh
   run check_library_structure "./check_library_structure/SketchFolderNameTooLongExtras"
   echo "Exit status: $status | Expected: $expectedExitStatus"
   [ "$status" -eq $expectedExitStatus ]
-  [ "${#lines[@]}" -eq 1 ]
-  outputRegex='^ERROR: Folder name asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf exceeds the maximum of 63 characters\.$'
+  [ "${#lines[@]}" -eq 2 ]
+  outputRegex='^Folder name asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf exceeds the maximum of 63 characters\.$'
   [[ "${lines[0]}" =~ $outputRegex ]]
+  outputRegex='^ERROR: \./check_library_structure/SketchFolderNameTooLongExtras/extras/asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf: Invalid folder name\.$'
+  [[ "${lines[1]}" =~ $outputRegex ]]
 }
 
 @test "check_library_structure \"./check_library_structure/SketchFolderNameMismatch\"" {
