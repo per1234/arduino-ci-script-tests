@@ -221,6 +221,16 @@ source ../arduino-ci-script/arduino-ci-script.sh
   [[ "${lines[0]}" =~ $outputRegex ]]
 }
 
+@test "check_library_properties \"./check_library_manager_compliance/NameStartsWithArduino\"" {
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_SUCCESS_EXIT_STATUS
+  run check_library_properties "./check_library_manager_compliance/NameStartsWithArduino"
+  echo "Exit status: $status | Expected: $expectedExitStatus"
+  [ "$status" -eq $expectedExitStatus ]
+  [ "${#lines[@]}" -eq 1 ]
+  outputRegex='^WARNING: \./check_library_manager_compliance/NameStartsWithArduino/library\.properties: name value: ArduinoFoo starts with "arduino"\. These names are reserved for official Arduino libraries\. Libraries using a reserved name will not be accepted in the Library Manager index\.$'
+  [[ "${lines[0]}" =~ $outputRegex ]]
+}
+
 @test "check_library_properties \"./check_library_properties/InvalidVersion\"" {
   expectedExitStatus=$ARDUINO_CI_SCRIPT_CHECK_LIBRARY_PROPERTIES_INVALID_VERSION_EXIT_STATUS
   run check_library_properties "./check_library_properties/InvalidVersion"
