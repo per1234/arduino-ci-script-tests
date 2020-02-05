@@ -75,6 +75,18 @@ source ../arduino-ci-script/arduino-ci-script.sh
   [[ "${lines[1]}" =~ $outputRegex ]]
 }
 
+@test "check_library_manager_compliance \"./check_library_manager_compliance/NameContainsSlash\"" {
+  expectedExitStatus=$ARDUINO_CI_SCRIPT_CHECK_LIBRARY_MANAGER_COMPLIANCE_NAME_HAS_INVALID_CHARACTER_EXIT_STATUS
+  run check_library_manager_compliance "./check_library_manager_compliance/NameContainsSlash"
+  echo "Exit status: $status | Expected: $expectedExitStatus"
+  [ "$status" -eq $expectedExitStatus ]
+  [ "${#lines[@]}" -eq 2 ]
+  outputRegex='^Invalid folder name: Foo/bar\. Only letters, numbers, dots, dashes, and underscores are allowed\.$'
+  [[ "${lines[0]}" =~ $outputRegex ]]
+  outputRegex="^ERROR: \./check_library_manager_compliance/NameContainsSlash/library.properties: name value: Foo/bar does not meet the requirements of the Arduino Library Manager indexer\. See: https://github\.com/arduino/Arduino/wiki/Arduino-IDE-1\.5:-Library-specification#libraryproperties-file-format$"
+  [[ "${lines[1]}" =~ $outputRegex ]]
+}
+
 @test "check_library_manager_compliance \"./check_library_manager_compliance/NameTooLong\"" {
   expectedExitStatus=$ARDUINO_CI_SCRIPT_CHECK_LIBRARY_MANAGER_COMPLIANCE_NAME_TOO_LONG_EXIT_STATUS
   run check_library_manager_compliance "./check_library_manager_compliance/NameTooLong"
